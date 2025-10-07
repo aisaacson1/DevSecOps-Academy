@@ -1,13 +1,47 @@
 import { createClient } from '@supabase/supabase-js';
+import { getConfig } from './config';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const config = getConfig();
+const { supabaseUrl, supabaseAnonKey, isConfigured, source } = config;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
+if (!isConfigured) {
+  console.error('Missing Supabase environment variables!');
+  console.error('VITE_SUPABASE_URL:', supabaseUrl ? 'Set' : 'Missing');
+  console.error('VITE_SUPABASE_ANON_KEY:', supabaseAnonKey ? 'Set' : 'Missing');
+  console.error('Available env vars:', Object.keys(import.meta.env));
+  console.error('Window config:', window.APP_CONFIG);
+
+  const errorMessage = `
+    Missing required Supabase configuration!
+
+    For OpenShift deployments, you have two options:
+
+    Option 1 (Recommended): Build-time configuration
+    1. Set environment variables before building:
+       - VITE_SUPABASE_URL
+       - VITE_SUPABASE_ANON_KEY
+    2. Run: npm run build
+    3. Deploy the dist/ folder
+
+    Option 2: Runtime configuration
+    1. Edit /config.js in your deployment:
+       window.APP_CONFIG = {
+         VITE_SUPABASE_URL: 'https://your-project.supabase.co',
+         VITE_SUPABASE_ANON_KEY: 'your-anon-key'
+       };
+    2. Restart your application
+
+    Note: VITE_ environment variables are typically set at BUILD TIME.
+  `;
+
+  throw new Error(errorMessage);
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+console.log('Supabase client initialized successfully');
+console.log('Configuration source:', source);
+console.log('Supabase URL:', supabaseUrl);
+
+export const supabase = createClient(supabaseUrl!, supabaseAnonKey!);
 
 export type Profile = {
   id: string;

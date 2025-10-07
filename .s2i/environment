@@ -1,0 +1,10 @@
+# OpenShift Source-to-Image (S2I) Environment Variables
+# These variables will be available during the build process
+#
+# IMPORTANT: Update these values with your actual Supabase credentials before deploying!
+#
+# You can also set these in the OpenShift Build Config instead:
+#   oc set env bc/<build-config-name> VITE_SUPABASE_URL=... VITE_SUPABASE_ANON_KEY=...
+
+VITE_SUPABASE_URL=https://jcaygvhmjukkxgpfkmgk.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjYXlndmhtanVra3hncGZrbWdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk4MjUwNTYsImV4cCI6MjA3NTQwMTA1Nn0.pKnCk6OriQ7KjcfqHt3O6jO75uR5ykhNo1hK5wcoXug

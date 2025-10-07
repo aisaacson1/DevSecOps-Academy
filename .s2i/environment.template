@@ -1,0 +1,15 @@
+# OpenShift Source-to-Image (S2I) Environment Variables Template
+#
+# Copy this file to '.s2i/environment' and update with your actual values
+#
+# Usage:
+#   cp .s2i/environment.template .s2i/environment
+#   # Then edit .s2i/environment with your actual credentials
+#
+# Alternatively, set these in the OpenShift Build Config:
+#   oc set env bc/<build-config-name> \
+#     VITE_SUPABASE_URL=https://your-project.supabase.co \
+#     VITE_SUPABASE_ANON_KEY=your-anon-key
+
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key-here
